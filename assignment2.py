@@ -48,7 +48,6 @@ def main(args):
     #
     f2i, fcache, num_feats_cached, x2ys \
         = util.extract_features(train_toks + val_toks, feature_extractor)
-
     print('%d feature types extracted' % len(f2i))
     print('%d feature values cached for %d window types' %
           (num_feats_cached, len(fcache)))

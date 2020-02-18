@@ -111,41 +111,14 @@ class FFLM(nn.Module):
     def forward(self, X, Y, mean=True):  # X (B x nhis), Y (B)
         # TODO: calculate logits (B x V) s.t.
         #       softmax(logits[i,:]) = distribution p(:|X[i]) under the model.
-
-        #print(self.E)
-        #embeds = X.view(16,-1)
-        #!!! B IS BATCH_SIZE
-        #print(self.FF.stack[0])
-        #print(embeds)
-        #print(X[2], "->", Y[2])
-        #note: maybe logits is just looking for logits[x][y] = y, given x? it's a B x V vector s.t.... well, u get the idea. just read above
-        #WAIT: B != V! And Y is B. So what is V then??
-        #No, Y is B long, but Y itself is in the range |V|, so we guuci
-        X = self.E(X).reshape((1, -1)).float()
-        #print(X.shape)
-        X = self.FF.forward(X)
-        #print(X.shape)
-        #
-        logits = X.reshape((self.batch_size, self.V))
-        m = torch.nn.Tanh()
-        #logits = m(logits)
-        lug = np.zeros((X.shape[0], self.V))
-        for i, _ in enumerate(X):
-            #for j in X[i]:
-            #self.token_to_idx is len(v).....
-            j = Y[i]
-            if lug[i,j] < 1: lug[i][j] = 1 #maybe += ???
-            else: lug[i,j] += 1
-        #logits = torch.tensor(lug, requires_grad=True)
-        #logits = logits.float()
-        #print(logits[0, :])
-        #print(logits.grad_fn)
-        #logits = self.FF.stack[0][1](logits)
-        #logits = self.FF.stack[0][0](logits)
-        #print(self.FF.stack[0][1](logits.view(logits.shape[0], -1)))
+        X = self.E(X).reshape((1, -1)).float() #apply embeddings, reshape to FF
+        X = self.FF.forward(X) #FF
+        logits = X.reshape((self.batch_size, self.V)) #reshape into logits
+        tanh = torch.nn.Tanh() #init activation function
+        logits = tanh(logits) #apply activation function
         loss = self.mean_ce(logits, Y) if mean else self.sum_ce(logits, Y)
         return loss
-        #MESSAGE EMILY???
+
     def train_epochs(self, train_toks, val_toks, epochs):
         T = batchify([self.token_to_idx[x] for x in train_toks],
                      self.batch_size)

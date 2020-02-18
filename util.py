@@ -181,17 +181,19 @@ def softmax_DELETE(v):
     return a
 
 def softmax_array(v):
+    """use this when you don't have a sparse matrix"""
     maxv = np.amax(v)
     non_zero = v[np.nonzero(v)]
     summation = np.sum(np.exp(non_zero - maxv)) + np.exp(0 - maxv) * (len(v) - len(non_zero) - 1)
     v = np.exp(v - maxv) / summation
-    assert abs(sum(v) - 1) < 10e-2, print(sum(v))
+    assert abs(sum(v) - 1) < 10e-5, print(sum(v))
     return v
 
 def softmax(v, length):
+    """Use this when you pass a dict (sparse matrix)"""
     counted = np.array(list(v.values()))
     maxv = np.maximum(np.amax(counted), 0.)
-    uncounted = np.float64(length - 1 - len(counted)) * np.exp(0. - maxv)
+    uncounted = np.float64(length - 1 - len(counted)) * np.exp(0. - maxv) #account for 0s
     summation = np.float64(np.sum(np.exp(counted - maxv)) + uncounted)
     counted_total = np.float64(0.)
     for x in v.keys():

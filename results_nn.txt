@@ -1,0 +1,41 @@
+(venv) e@nix:~/code/sch/533/533-a2/code$ python3 assignment2_nlm.py --nlay 0 --wdim 1 --hdim 1 --lr 0.00001 --B 16 --epochs 16
+-------------------------------------------------------------------------------
+Using 11449 tokens for training (10% of 114491)
+Using 11449 tokens for validation (10% of 114491)
+Using vocab size 1000 (excluding UNK) (original 2707)
+FFLM(
+  (E): Embedding(1001, 1)
+  (FF): FF(
+    (stack): ModuleList()
+    (out): Linear(in_features=48, out_features=16016, bias=True)
+  )
+  (mean_ce): CrossEntropyLoss()
+  (sum_ce): CrossEntropyLoss()
+)
+Epoch   1 | running train ppl 1482.0921 | val ppl 1358.4303    ***new best val ppl***
+Epoch   2 | running train ppl 1237.3072 | val ppl 1073.8615    ***new best val ppl***
+Epoch   3 | running train ppl 951.9291 | val ppl 828.3136    ***new best val ppl***
+Epoch   4 | running train ppl 750.0666 | val ppl 678.5140    ***new best val ppl***
+Epoch   5 | running train ppl 637.1412 | val ppl 604.0157    ***new best val ppl***
+Epoch   6 | running train ppl 585.9020 | val ppl 568.7628    ***new best val ppl***
+Epoch   7 | running train ppl 559.2181 | val ppl 551.3321    ***new best val ppl***
+Epoch   8 | running train ppl 547.8047 | val ppl 543.3410    ***new best val ppl***
+Epoch   9 | running train ppl 539.8561 | val ppl 536.4256    ***new best val ppl***
+Epoch  10 | running train ppl 535.1735 | val ppl 532.5067    ***new best val ppl***
+Epoch  11 | running train ppl 531.5177 | val ppl 530.0052    ***new best val ppl***
+Epoch  12 | running train ppl 529.1367 | val ppl 527.5169    ***new best val ppl***
+Epoch  13 | running train ppl 527.6041 | val ppl 526.3483    ***new best val ppl***
+Epoch  14 | running train ppl 525.1312 | val ppl 524.1700    ***new best val ppl***
+Epoch  15 | running train ppl 523.6859 | val ppl 523.0819    ***new best val ppl***
+Epoch  16 | running train ppl 522.2000 | val ppl 521.5096    ***new best val ppl***
+Optimized Perplexity: 521.509607
+migrant: `` '' of and . for said it on a 
+cheeseburgers: `` '' of and . for said it on a 
+because: `` '' of and . for said it on a 
+chief: `` '' of and . for said it on a 
+hoped: `` '' of and . for said it on a 
+lost: to the he <?> i 's at be with , 
+hope: `` '' of and . for said it on a 
+do: to the he <?> i 's at be with , 
+her: `` '' of and . for said it on a 
+premier: `` '' of and . for said it on 
