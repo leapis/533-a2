@@ -98,7 +98,7 @@ class FFLM(nn.Module):
         self.E = nn.Embedding(self.V, wdim)
 
         # TODO: define feedfoward layer with correct dimensions.
-        self.FF = FF(nhis * self.batch_size, hdim, self.batch_size * (self.V), nlayers)
+        self.FF = FF(nhis * self.batch_size * wdim, hdim, self.batch_size * (self.V), nlayers)
 
         self.apply(get_init_weights(init))
         self.lr = lr
@@ -121,14 +121,14 @@ class FFLM(nn.Module):
         #note: maybe logits is just looking for logits[x][y] = y, given x? it's a B x V vector s.t.... well, u get the idea. just read above
         #WAIT: B != V! And Y is B. So what is V then??
         #No, Y is B long, but Y itself is in the range |V|, so we guuci
-        X = X.reshape((1, -1)).float()
+        X = self.E(X).reshape((1, -1)).float()
         #print(X.shape)
         X = self.FF.forward(X)
         #print(X.shape)
         #
         logits = X.reshape((self.batch_size, self.V))
         m = torch.nn.Tanh()
-        logits = m(logits)
+        #logits = m(logits)
         lug = np.zeros((X.shape[0], self.V))
         for i, _ in enumerate(X):
             #for j in X[i]:
