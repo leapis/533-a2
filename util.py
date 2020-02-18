@@ -73,18 +73,11 @@ class LogLinearLanguageModel:
             # Compute the probability over the vocabulary given x.
             q = self.compute_probs(x)
 
-            # TODO: Implement the gradient update w = w - lr * grad_w J(w).
-            # The update must be sparse. Do not work with the whole vector w.
-            # Use caches self.fcache and self.x2ys.
-
+            #gradient update
             ys = self.x2ys[tuple(x)]
             for y_c in ys:
-                if self.token_to_idx[y_c] == self.token_to_idx[y]: #ie, is the one seen
-                    self.w[ self.fcache[ tuple(x + [y]) ] ] += self.lr * (1 - q[self.token_to_idx[y_c]])
-                    #self.w[self.token_to_idx[y_c]] += self.lr * (1 - q[self.token_to_idx[y_c]])
-                else: #ie, prediction was wrong
-                    self.w[ self.fcache[ tuple(x + [y_c]) ] ] -= self.lr * (q[self.token_to_idx[y_c]])
-
+                actual = 1 if self.token_to_idx[y_c] == self.token_to_idx[y] else 0 #hit or miss
+                self.w[ self.fcache[ tuple(x + [y_c]) ] ] += self.lr * (actual - q[self.token_to_idx[y_c]]) #update weights
 
             total_loss -= math.log(q[self.token_to_idx[y]])
 
@@ -95,12 +88,12 @@ class LogLinearLanguageModel:
         return total_loss / len(positions)
 
     def compute_probs(self, x):
-        # TODO: Calculate NumPy score vector q_ s.t. q_[ind(y)] = w' phi(x, y).
-        ys = self.x2ys[tuple(x)]
-        q_ = dict()#np.zeros(len(self.w))
-        for y in ys:
-            q_[self.token_to_idx[y]] = sum( self.w[ self.fcache[ tuple(x + [y]) ] ] )
-        return softmax2(q_)
+        length = len(self.token_to_idx) + 1
+        ys = self.x2ys[tuple(x)]  #find all y that exist s.t. (x, y) exists
+        q_ =  dict() #np.zeros(length) #init q_ (dictionary to emulate sparse matrix)
+        for y in ys: #for each y that exists
+            q_[self.token_to_idx[y]] = np.sum( self.w[ self.fcache[ tuple(x + [y]) ] ] )
+        return softmax(q_, length) #softmax this, then return 
 
     def test(self, corpus):
         logprob = 0.
@@ -175,20 +168,37 @@ def extract_features(training_corpus, feature_extractor):
 
     return f2i, fcache, num_feats_cached, x2ys
 
-def softmax2(v):
+def softmax_DELETE(v):
+    length = max(v.keys()) + 1
     maxv = max(v.values())
-    summation = sum( [np.exp(a - maxv) for a in v.values()] )
+    summation = sum( [np.exp(a - maxv) for a in v.values()] ) + (np.exp(0 - maxv) * (length - len(v)))
+    a = np.zeros(length)
+    a.fill(np.exp(0 - maxv) / summation)
+    a[0] = 0
     for i in v:
-        v[i] = np.exp(v[i] - maxv) / summation
-    assert abs(sum(v.values()) - 1) < 1e-5
+        a[i] = np.exp(v[i] - maxv) / summation
+    assert abs(sum(a) - 1) < 1e-3, print(sum(a))
+    return a
+
+def softmax_array(v):
+    maxv = np.amax(v)
+    non_zero = v[np.nonzero(v)]
+    summation = np.sum(np.exp(non_zero - maxv)) + np.exp(0 - maxv) * (len(v) - len(non_zero) - 1)
+    v = np.exp(v - maxv) / summation
+    assert abs(sum(v) - 1) < 10e-2, print(sum(v))
     return v
 
-def softmax(v):
-    maxv = max(v)
-    summation = sum( [np.exp(a - maxv) for a in v] )
-    for i, _ in enumerate(v):
-        v[i] = np.exp(v[i] - maxv) / summation
-    assert abs(sum(v) - 1) < 1e-5
+def softmax(v, length):
+    counted = np.array(list(v.values()))
+    maxv = np.maximum(np.amax(counted), 0.)
+    uncounted = np.float64(length - 1 - len(counted)) * np.exp(0. - maxv)
+    summation = np.float64(np.sum(np.exp(counted - maxv)) + uncounted)
+    counted_total = np.float64(0.)
+    for x in v.keys():
+        v[x] = np.float64(np.exp(v[x] - maxv)) / summation
+        counted_total += v[x]
+    rounding_error = abs( (counted_total + (uncounted / summation) ) - 1)
+    assert rounding_error < 10e-5, print(rounding_error)
     return v
 
 class Tokenizer:

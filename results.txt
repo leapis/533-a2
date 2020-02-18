@@ -1,0 +1,83 @@
+Epoch  10 | avg loss   5.8278 | running train ppl 339.6014 | val ppl 458.3921    ***new best val ppl***
+Optimized Perplexity: 458.392124
+-------------------------------------------------------------------------------
+      1030: c-1=prime^w=minister                     ( 13.6001)
+      1474: c-1=according^w=to                       ( 13.0633)
+       531: c-1=ivory^w=coast                        ( 12.6491)
+       690: c-1=barack^w=obama                       ( 12.5972)
+       528: c-1=laurent^w=gbagbo                     ( 12.5972)
+      4546: c-1=ahead^w=of                           ( 12.4189)
+      2448: c-1=:^w=``                               ( 11.9463)
+       655: c-1=united^w=states                      ( 11.9269)
+      1002: c-1=alassane^w=ouattara                  ( 11.8983)
+      2213: c-1=end^w=of                             ( 11.8400)
+
+
+Epoch  10 | avg loss   2.9036 | running train ppl  18.2388 | val ppl 169.0622    ***new best val ppl***
+Optimized Perplexity: 169.062226
+-------------------------------------------------------------------------------
+      1030: c-1=prime^w=minister                     ( 15.3333)
+      1474: c-1=according^w=to                       ( 14.8683)
+       690: c-1=barack^w=obama                       ( 14.4927)
+       528: c-1=laurent^w=gbagbo                     ( 14.4927)
+      4546: c-1=ahead^w=of                           ( 14.3575)
+      3167: c-1=part^w=of                            ( 13.8859)
+      2092: c-1=such^w=as                            ( 13.8386)
+       768: c-1=able^w=to                            ( 13.7888)
+       655: c-1=united^w=states                      ( 13.7443)
+      2054: c-1=members^w=of                         ( 13.6814)
+
+Epoch   9 | avg loss   1.8314 | running train ppl   6.2424 | val ppl 149.5913    ***new best val ppl***
+
+(Epoch  10 | avg loss   1.6505 | running train ppl   5.2095 | val ppl 150.3063    quartered learning rate to 0.25
+Optimized Perplexity: 150.306305)
+-------------------------------------------------------------------------------
+      1030: c-1=prime^w=minister                     ( 16.0427)
+      1474: c-1=according^w=to                       ( 15.5865)
+       690: c-1=barack^w=obama                       ( 15.2212)
+       528: c-1=laurent^w=gbagbo                     ( 15.2212)
+      4546: c-1=ahead^w=of                           ( 15.0906)
+      2213: c-1=end^w=of                             ( 14.8070)
+      3167: c-1=part^w=of                            ( 14.6402)
+       655: c-1=united^w=states                      ( 14.6320)
+      2092: c-1=such^w=as                            ( 14.5955)
+       768: c-1=able^w=to                            ( 14.5487)
+
+Epoch   7 | avg loss   1.4136 | running train ppl   4.1106 | val ppl 149.5702    ***new best val ppl***
+-------------------------------------------------------------------------------
+      1030: c-1=prime^w=minister                     ( 16.2011)
+      1474: c-1=according^w=to                       ( 15.7474)
+       690: c-1=barack^w=obama                       ( 15.3850)
+       528: c-1=laurent^w=gbagbo                     ( 15.3850)
+      2213: c-1=end^w=of                             ( 15.2720)
+      4546: c-1=ahead^w=of                           ( 15.2557)
+      3167: c-1=part^w=of                            ( 14.8111)
+      2092: c-1=such^w=as                            ( 14.7670)
+       768: c-1=able^w=to                            ( 14.7210)
+      2054: c-1=members^w=of                         ( 14.6220)
+
+Epoch   7 | avg loss   1.2446 | running train ppl   3.4714 | val ppl 167.2500    ***new best val ppl***
+-------------------------------------------------------------------------------
+     30174: c-1=civil^w=ceremony                     ( 16.4757)
+      1030: c-1=prime^w=minister                     ( 16.4499)
+     53568: c-1=will^w=change                        ( 16.1731)
+      1474: c-1=according^w=to                       ( 16.0003)
+      2213: c-1=end^w=of                             ( 15.9771)
+     41774: c-1=from^w=what                          ( 15.9521)
+     48111: c-1=got^w=45.9                           ( 15.7957)
+     23559: c-1=efforts^w=made                       ( 15.6599)
+       690: c-1=barack^w=obama                       ( 15.6426)
+       528: c-1=laurent^w=gbagbo                     ( 15.6426)
+
+Epoch   9 | avg loss   1.1615 | running train ppl   3.1948 | val ppl 222.6452    ***new best val ppl***
+-------------------------------------------------------------------------------
+     31329: c-1=,^w=chile                            ( 23.9635)
+     33288: c-1=at^w=lpga                            ( 23.9113)
+     39717: c-1=is^w=moving                          ( 23.7509)
+     39463: c-1=2009^w=was                           ( 23.6079)
+     41774: c-1=from^w=what                          ( 22.3210)
+     12452: c-1=decided^w=on                         ( 22.2818)
+     17816: c-1=him^w=called                         ( 22.2235)
+     37416: c-1=on^w=china                           ( 22.2200)
+     52965: c-1=.^w=george                           ( 21.0641)
+     30174: c-1=civil^w=ceremony                     ( 19.9485)
